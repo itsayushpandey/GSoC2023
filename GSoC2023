@@ -1,17 +1,16 @@
-# GSoC2023
+## GSoC2023 Final report
 Import-Export Instances on KVM
 
+## Goal of the Project:
 
-# Goal of the Project:
-
-The goal of the project is to implement Import and Export Instances(Virtual Machines) functionality for KVM Hypervisor.  Currently, this functionality is only available for VMWare and I would be working on extending it to KVM Hypervisor. Manage Instance are the ones which are managed by apache cloudstack and persist in cloudstack databases. Unmanage Instance are the ones which are not managed by apache cloudstack and do not persist in cloudstack Database.
+The goal of the project is to implement Import and Export Instances(Virtual Machines) functionality for KVM Hypervisor. It allows cloudstack operators to manage or unmanage VMs from their cloud environment. Currently, this functionality is only available for VMWare and I would be working on extending it to KVM Hypervisor. Manage Instance are the ones which are managed by apache cloudstack and persist in cloudstack databases. Unmanage Instances are the ones which are not managed by apache cloudstack and do not persist in cloudstack Database.By  managing through cloudstack, the users get all the benefits that cloudstack as an orchestrator provides.
 
 
 
 
 # Contributions made during GSoC :
 
-Implementation of three API’s:
+Extension of the Implementation of three API’s:
 
 ListUnmanagesInstances
 unManageVirtualMachine
@@ -19,8 +18,8 @@ importUnmanagedInstances
 
 
 
-listUnmanagedInstances API: This API is used list all the unmanage instances 
-This api executes the required qemu/virsh commands and presents the users with VM details. It will list all the unmanage instances in the apache cloudstack ( meaning these instances are not managed by cloudstack and do not persist in cloudstack database). To implement listUnmanagedInstances api I created a wrapper class LibvirtPrepareUnmanageVMInstanceCommandWrapper which wraps the core commands (PrepareUnmanageVMInstanceCommand) which is send from management server to  the host/agent. This wrapper class is executed on the host which returns an object of answer class(PrepareUnmanageVMInstanceAnswer) which has the list of all the unmanaged virtual machines which is sent back to the management server and then management server sends it back to the user. This class is used to check if the virtual machine which needs to be unmanaged exists or not.
+listUnmanagedInstances API: This API is used to list all the unmanage instances in apache cloudstack. The purpose of this api is to fetch and list out all the virtual machines that may be running on a hypervisor but are not managed by apache cloudstack. The api also lists the meta data for the virtual machines. Previously it was implemented for VMWare and now as part of this work we extended it for KVM Hypervisor as well. In terms of implementation KVM and VMware are significantly different hypervisors with KVM being open source. Consequently the implementation to support VMWare and KVM are maintained in two separate plugins within apache cloudstack project. 
+For extension of this api for KVM ,this api executes the required qemu/virsh commands and presents the users with VM details. It will list all the unmanage instances in the apache cloudstack ( meaning these instances are not managed by cloudstack and do not persist in cloudstack database). To extend  listUnmanagedInstances api for KVM or similar, I created a wrapper class LibvirtPrepareUnmanageVMInstanceCommandWrapper which wraps the core commands (PrepareUnmanageVMInstanceCommand) which is send from management server to  the host/agent. This wrapper class is executed on the host which returns an object of answer class(PrepareUnmanageVMInstanceAnswer) which has the list of all the unmanaged virtual machines which is sent back to the management server and then management server sends it back to the user. This class is used to check if the virtual machine which needs to be unmanaged exists or not.
 
 
 
@@ -31,29 +30,30 @@ importUnmanagedInstances API: This API imports an unmanaged Virtual machine into
 To implement it, I populated all the required parameters such as templateid, serviceofferingid, nicnetworklist, nicipaddresslist from unmanageinstanceTO class and the properties which can’t be fetched from TO object would be given by the user during import/managing an unmanaged instance. 
 I also made changes in the UI for this API to be able to work/triggered from UI along with CLI.
 
+Below is a screenshot for the API from CLI.
+
+Here we can see the response of unmanageVirtualMachine and listUnmanagedInstances
+
+
+
+Below is a screenshot of the response of importUnmanagedInstances API.
+
 
 # Current State :
 
-I’ve finished the development part and currently my changes are being reviewed by my mentor and other contributors. Based on the feedbacl/inputs I would be refracting the code and then my changes will  be merged.
+I’ve finished the development part and currently my changes are being reviewed by my mentor and other contributors. Based on the feedback/inputs I would be refracting the code and then my changes will  be merged.
+
+
 
 # Images for Reference: 
 
-This is the expectation after implementation of Import-Export Instances on KVM Hypervisor (Below image is for VMWare Hypervisor which already has this feature)
+Below is the Image of the Instance that I created to test functionality of  unmanageVirtualMachine API
 
 
-
-Image of the Instance that I created using KVM Hypervisor to unmanage the instance 
-
-
-As you can see in the above picture. After implementation of unmanageVirtualMachine api, the unmanage instance which I created in the previous picture is unmanaged now.
+As we can see the above VMs is unmanaged now and we can see all the unmanaged instances using list unmanage instances api
 
 
-
-Below is an Unmanaged Instances, which I created and the  unmanaged it
-
-
-
-These are some fields which needs to be populated to import above unmanaged instance
+These are some fields which needs to be populated on click of import instance button to import the unmanaged instance
 
 
 
@@ -66,22 +66,24 @@ We can see the details of the managed instances in the instances section of comp
 
 
 # Future Goals :
-Complete Integration Testing and code refactoring
 Currently there can only be one instance managed or unmanaged at a time. In future,  implementing functionality for managing or unmanaging multiple VMs simultaneously.
+Adding more documentation for the feature I implemented
 
 # Conclusion :
 I would like to thank my mentor Nicolas and Alex for their support and help throughout the project. There are also other contributors in the community, such as Daan Hoogland, Rohit Yadav and others, who have also helped me a lot. This summer vacation, I have witnessed the whole process/architecture  of Infrastructure as a Service(IaaS) and how an open source works. Special thanks to the Apache SoftwareFoundation and the GSoC community for such a great opportunity to enter in the open Source realm.
 
 
-# Work Link Section:
+#### Work Link Section:
 
-Github Link of my work/commits  in the Project:
-https://github.com/apache/cloudstack/pull/7712
+[Github Link of my work/commits  in the Project]
+(https://github.com/apache/cloudstack/pull/7712)
 
-Github Link of the Project:
-https://github.com/apache/cloudstack/issues/7127
-GSoC Project Link :  
-https://summerofcode.withgoogle.com/programs/2023/projects/f0gpheQM
+[Github Link of the Project]
+(https://github.com/apache/cloudstack/issues/7127)
+[GSoC Project Link]
+(https://summerofcode.withgoogle.com/programs/2023/projects/f0gpheQM)
+
+
 
 
 
