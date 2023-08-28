@@ -2,14 +2,14 @@
 Import-Export Instances on KVM
 
 
-#Goal of the Project:
+# Goal of the Project:
 
 The goal of the project is to implement Import and Export Instances(Virtual Machines) functionality for KVM Hypervisor.  Currently, this functionality is only available for VMWare and I would be working on extending it to KVM Hypervisor. Manage Instance are the ones which are managed by apache cloudstack and persist in cloudstack databases. Unmanage Instance are the ones which are not managed by apache cloudstack and do not persist in cloudstack Database.
 
 
 
 
-#Contributions made during GSoC :
+# Contributions made during GSoC :
 
 Implementation of three API’s:
 
@@ -32,11 +32,11 @@ To implement it, I populated all the required parameters such as templateid, ser
 I also made changes in the UI for this API to be able to work/triggered from UI along with CLI.
 
 
-#Current State :
+# Current State :
 
 I’ve finished the development part and currently my changes are being reviewed by my mentor and other contributors. Based on the feedbacl/inputs I would be refracting the code and then my changes will  be merged.
 
-#Images for Reference: 
+# Images for Reference: 
 
 This is the expectation after implementation of Import-Export Instances on KVM Hypervisor (Below image is for VMWare Hypervisor which already has this feature)
 
@@ -65,15 +65,15 @@ We can see the details of the managed instances in the instances section of comp
 
 
 
-#Future Goals :
+# Future Goals :
 Complete Integration Testing and code refactoring
 Currently there can only be one instance managed or unmanaged at a time. In future,  implementing functionality for managing or unmanaging multiple VMs simultaneously.
 
-#Conclusion :
+# Conclusion :
 I would like to thank my mentor Nicolas and Alex for their support and help throughout the project. There are also other contributors in the community, such as Daan Hoogland, Rohit Yadav and others, who have also helped me a lot. This summer vacation, I have witnessed the whole process/architecture  of Infrastructure as a Service(IaaS) and how an open source works. Special thanks to the Apache SoftwareFoundation and the GSoC community for such a great opportunity to enter in the open Source realm.
 
 
-#Work Link Section:
+# Work Link Section:
 
 Github Link of my work/commits  in the Project:
 https://github.com/apache/cloudstack/pull/7712
